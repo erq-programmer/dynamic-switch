@@ -4,18 +4,9 @@
 // - metoda .isValid, która zwraca true jeśli wszystkie warunki będą na false
 // po wykonaniu w metodzie .isValid dany warunek jest usuwany z listy cases
 
-import { createBrotliCompress } from 'zlib';
-
-// interface ISwitch {
-//     cases: Array<boolean>;
-//     conditions: Array<any>;
-//     add: (condition: boolean, callback: () => void);
-//     isValid(): void;
-// }
-
 class Switch {
   public cases: Array<() => void> = [];
-  private conditions: Array<boolean> = [];
+  public conditions: Array<boolean> = [];
 
   add(condition: boolean, callback: () => void) {
     if (condition === true) {
@@ -29,18 +20,18 @@ class Switch {
       return element === false;
     }
 
-    console.log('Cases before: ', this.cases);
-    console.log('Conditions before: ', this.conditions);
+    // console.log('Cases before: ', this.cases);
+    // console.log('Conditions before: ', this.conditions);
 
     const isValid = this.conditions.every(everyChecker);
 
-    this.cases.map((callback) => callback());
+    this.cases.forEach((callback) => callback());
 
     this.cases.length = 0;
     this.conditions.length = 0;
 
-    console.log('Cases after: ', this.cases);
-    console.log('Conditions after: ', this.conditions);
+    // console.log('Cases after: ', this.cases);
+    // console.log('Conditions after: ', this.conditions);
 
     return isValid;
   }
@@ -48,7 +39,7 @@ class Switch {
 
 // ma to działać tak:
 const formChecker = new Switch();
-const value = 'testtest';
+const value = 'test';
 
 formChecker.add(value.length < 5, () => {
   console.error('value is too short');
@@ -62,8 +53,7 @@ formChecker.add(value.length > 6, () => {
   console.error('value is too long');
 });
 
-const x = formChecker.isValid(); // === false
-console.log(x);
+formChecker.isValid(); // === false
 
 // [OK] console.error('value is to short')
 // [OK] console.error('value is not an email')
