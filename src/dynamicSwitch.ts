@@ -4,6 +4,8 @@
 // - metoda .isValid, która zwraca true jeśli wszystkie warunki będą na false
 // po wykonaniu w metodzie .isValid dany warunek jest usuwany z listy cases
 
+import { createBrotliCompress } from 'zlib';
+
 // interface ISwitch {
 //     cases: Array<boolean>;
 //     conditions: Array<any>;
@@ -12,38 +14,41 @@
 // }
 
 class Switch {
-  private cases: Array<() => void> = [];
+  public cases: Array<() => void> = [];
   private conditions: Array<boolean> = [];
 
   add(condition: boolean, callback: () => void) {
     if (condition === true) {
       this.cases.push(callback);
     }
-
     this.conditions.push(condition);
   }
-  isValid() {
+
+  isValid(): boolean {
     function everyChecker(element: boolean) {
       return element === false;
     }
 
     console.log('Cases before: ', this.cases);
     console.log('Conditions before: ', this.conditions);
-    console.log(this.conditions.every(everyChecker));
-    // this.cases.map(case => console.log(case));
+
+    const isValid = this.conditions.every(everyChecker);
+
+    this.cases.map((callback) => callback());
 
     this.cases.length = 0;
     this.conditions.length = 0;
 
     console.log('Cases after: ', this.cases);
     console.log('Conditions after: ', this.conditions);
-    // return this.conditions;
+
+    return isValid;
   }
 }
 
 // ma to działać tak:
 const formChecker = new Switch();
-const value = 'test';
+const value = 'testtest';
 
 formChecker.add(value.length < 5, () => {
   console.error('value is too short');
@@ -53,15 +58,15 @@ formChecker.add(!value.includes('@'), () => {
   console.error('value is not an email');
 });
 
-formChecker.add(value.includes('@'), () => {
-  console.error('value is an email');
+formChecker.add(value.length > 6, () => {
+  console.error('value is too long');
 });
 
-formChecker.isValid(); // === false
-// console.error('value is to short')
-// console.error('value is not an email')
-// formChecker.cases.length === 0
+const x = formChecker.isValid(); // === false
+console.log(x);
 
-// console.log(formChecker.cases.length);
+// [OK] console.error('value is to short')
+// [OK] console.error('value is not an email')
+// [OK] formChecker.cases.length === 0
 
 module.exports = { Switch };
