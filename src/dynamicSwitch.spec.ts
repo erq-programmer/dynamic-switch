@@ -29,6 +29,5 @@ describe("Switch class under test", () => {
         checker.add(false, callback);
         checker.add(false, callback);
         checker.add(true, callback);
-        expect(checker.conditions).toHaveLength(3);
-    }) 
-})
+    });
+});

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <coverage generated="1597343437967" clover="3.2.0">
   <project timestamp="1597343437967" name="All files">
+=======
+<coverage generated="1597269338669" clover="3.2.0">
+  <project timestamp="1597269338670" name="All files">
+>>>>>>> 160b92a78a3b655a150c718d1e544600b0d44d70
     <metrics statements="25" coveredstatements="24" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="7" elements="35" coveredelements="33" complexity="0" loc="25" ncloc="25" packages="1" files="1" classes="1"/>
     <file name="dynamicSwitch.ts" path="/home/erq/Documents/Code/exercises/dynamic-switch/src/dynamicSwitch.ts">
       <metrics statements="25" coveredstatements="24" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="7"/>
